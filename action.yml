@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+
+name: 'Setup Just'
+description: 'Installs Just in your GitHub workflows'
+inputs:
+  version:
+    description: 'Version to install, ex: 1.55.1'
+    default: '1.56.0'
+  checksum:
+    description: 'SHA256 checksum of download artifact'
+    default: 'fa2a8ec1015d9df5330941ade12437488fc40d33f9c9f8cd4eb70a26de11b639'
+
+runs:
+  using: "composite"
+  steps:
+    - id: cache
+      name: Cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+      with:
+        path: ~/.cache/setup-just
+        key: setup-just-1|${{ inputs.version }}|${{ inputs.checksum }}
+
+    - name: Download just
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+        CHECKSUM: ${{ inputs.checksum }}
+      run: |
+        mkdir -p ~/.cache/setup-just
+        "${GITHUB_ACTION_PATH}/download-artifact.sh" \
+          "https://github.com/casey/just/releases/download/${VERSION}/just-${VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+          ~/.cache/setup-just/artifact.tar.gz \
+          "${CHECKSUM}"
+
+    - name: Install just
+      shell: bash
+      run: |
+        install_dir=~/.local/bin
+        mkdir -p "${install_dir}"
+        cd ~/.cache/setup-just
+        tar -xzf artifact.tar.gz
+        chmod +x just
+        mv just "${install_dir}"
+        echo "${install_dir}" >>"${GITHUB_PATH}"

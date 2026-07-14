@@ -1,0 +1,11 @@
+_commit: 23c8344
+_src_path: gh:pcrockett/template-setup-action
+action_description: Installs Just in your GitHub workflows
+action_human_friendly_name: Setup Just
+action_name: setup-just
+github_org: pcrockett
+tool_doc_url: https://just.systems/
+tool_download_url: https://github.com/casey/just/releases/download/${VERSION}/just-${VERSION}-x86_64-unknown-linux-musl.tar.gz
+tool_latest_checksum: b0ef600f0df20d5ae91ae931627c499fc52b477ffe5f5ea7b7b3ec616b16c778
+tool_latest_version: 1.55.1
+tool_name: just
