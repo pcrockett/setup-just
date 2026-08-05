@@ -26,7 +26,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - uses: pcrockett/setup-just@f92bfe35b28001602570caeeaff0eb7abb96eca1  # v0.1.1
+      - name: Setup Just
+        uses: ./
 
       - run: |
           if ! git switch --create "${UPDATE_BRANCH_NAME}" "origin/${UPDATE_BRANCH_NAME}"; then
