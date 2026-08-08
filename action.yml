@@ -5,10 +5,10 @@ description: 'Installs Just in your GitHub workflows'
 inputs:
   version:
     description: 'Version to install, ex: 1.55.1'
-    default: '1.57.0'
+    default: '1.58.0'
   checksum:
     description: 'SHA256 checksum of download artifact'
-    default: '45b548094283cb9739af8f13273b8cddeee869f5b4ef2bb631b1f311cb566155'
+    default: '4a5cc2f53e6f0f8c59092a6cc38291eb729d46a7dd95d3ae582008881b84931d'
 
 runs:
   using: "composite"
